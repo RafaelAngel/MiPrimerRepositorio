@@ -1,0 +1,92 @@
+Lista de comandos git.
+
+Para git init es mejor usar el menu desplegable de Winduws, elegir git batch y el el terminal git escribir git init, esto crear el repositorio en el directorio seleccionado graficamente.
+git init (Crea un nuevo repositorio en el directorio indicado.)
+
+git difftool --tool-help (Lista de editores graficos para git.)
+
+git diff (Diferencias entre archivo modificado y archivo en repositorio.)
+
+gid add .
+git add NombreArchivo
+git status
+
+git commit -m "Detalles" (Confirma guradar todos los archivos que fueron preparados con git add ...)
+
+git diff --cached
+git diff --staged
+
+git config --global core.editor
+
+rm nombreArchivo(Remueve un archivo o carpeta)
+
+git rm nombreArchivo(Remueve un archiv o carpeta dentro del repositorio)
+
+git rm --cached NombreArchivo (Remueve un archivo del repositorio pero lo conserva en el disco duro.)
+
+git rm NombreCarpeta/\*.txt (Elimina todos los archivos con la extencion .txt dentro NombreCarpeta.)
+
+git rm \*z (Elimina todos los archivos que terminan con z.)
+
+git mv NombreArchivo NuevoNombreArchivo (Forma alternativa de renombrar archivos en git; porque no existe un comando de renombrado.)
+
+Alternativamente se puede usar lo siguiente para renombrar archivos:
+mv NombreArchivo NuevoNombreArchivo
+git rm NombreArchivo
+git add NuevoNombreArchivo
+
+Clonar un proyecto (Realizar una copia del master y colocarla en x carpeta)
+git clone https://github.com/schacon/simplegit-progit clonado
+
+git log (muestra el historial de movimientos en el repositorio git)
+
+-p en git log para mostrar las diferencias en cada commit.
+-2 en git log para mostrar el historial de los dos ultimos commit(entradas).
+git log -p -2
+
+Para mostrar estadisticas del historial.
+git log --stat
+
+
+Para mostrar en una linea el historial de cada objeto.
+Pero en la primer columna se ve la informacion en formato hexadecimal.
+git log --pretty=oneline
+
+Formatos persolaizados en caso de haberse creado un programa personalizado para ver los detalles del git.
+Los parametros pueden ser ceparados con cualquier simbolo ortografico.
+Parametro1 y todos los demas son parametros existentes en una lista de parametros de git.
+Es posible que se puedan incluir tantos parametros como la lista de parametros tenga.
+
+git log --pretty=format:"%parametro1, parametro2, parametro3, parametro4"
+
+Lista de parametros para git log --pretty=format:
+Se omiten los parametros para mostrar el historial en formato abreviado, porque no me gustan las abreviaturas.
+
+%H (Hash de la confirmación)
+%T (Hash del árbol)
+%P (Hashes de las confirmaciones padre)
+%an (Nombre del autor es quien escribió el trabajo. Que usó git add .)
+%ae (Dirección de correo del autor)
+%ad (Fecha de autoría (el formato respeta la opción -–date))
+%cn (Nombre del confirmador es quien lo aplicó (Posiblemente quien usó git commit --m "Comentario")
+%ce (Dirección de correo del confirmador)
+%cd (Fecha de confirmación)
+%s (Asunto; posiblemente el comentario escrito en git commit --m "Comentario")
+
+Para mostrar un grafico en formato ASCII en git log pretty=fotmat:"%h, %s"
+git log pretty=fotmat:"%h, %s" --graph
+
+Otro ejemplo ejecutado en mi sistema:
+git log --pretty=format:"Nombre autor %an; Nombre del confirmador %cn; Fecha add %ad; Fecha Commit %cd" --graph
+
+Otros parametros de git log
+-p (Muestra el parche introducido en cada confirmación.)
+
+--stat (Muestra estadísticas sobre los archivos modificados en cada confirmación.)
+
+--name-only (Muestra la lista de archivos afectados.)
+
+--name-status (Muestra la lista de archivos afectados, indicando además si fueron añadidos, modificados o eliminados.)
+
+-graph (Muestra un gráfico ASCII con la historia de ramificaciones y uniones.)
+
