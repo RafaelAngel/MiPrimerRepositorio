@@ -1,6 +1,14 @@
+Esta guia esta hecha para trabajar Git con el sistema operativo Windows, no obstante los comandos son los mismos en cualquier otro sistema.
+
+Etapa 1 de esta guia
 Lista de comandos git.
 
-Para git init es mejor usar el menu desplegable de Winduws, elegir git batch y el el terminal git escribir git init, esto crear el repositorio en el directorio seleccionado graficamente.
+Para comenzar es mejor usar la inrfas de linea de comandos proporcionada con la instalacion de git, se llama "MINGW64", ya que esta por defecto proporciona la direccion oficial del repositorio desde la linea de comandos.
+Lo cual es muy util para este entrenamiento.
+En Windows solo se necesita usar el menu emergente sobre alguna carpeta, la que sea y darle git batch here para abrir esa interfas de linea de comandos.
+
+
+Para git init es mejor usar el menu desplegable de Windows, elegir git batch y el el terminal git escribir git init, esto crear el repositorio en el directorio seleccionado graficamente.
 git init (Crea un nuevo repositorio en el directorio indicado.)
 
 git difftool --tool-help (Lista de editores graficos para git.)
@@ -57,7 +65,7 @@ Los parametros pueden ser ceparados con cualquier simbolo ortografico.
 Parametro1 y todos los demas son parametros existentes en una lista de parametros de git.
 Es posible que se puedan incluir tantos parametros como la lista de parametros tenga.
 
-git log --pretty=format:"%parametro1, parametro2, parametro3, parametro4"
+git log --pretty=format:"%parametro1, %parametro2, %parametro3, %parametro4"
 
 Lista de parametros para git log --pretty=format:
 Se omiten los parametros para mostrar el historial en formato abreviado, porque no me gustan las abreviaturas.
@@ -89,4 +97,839 @@ Otros parametros de git log
 --name-status (Muestra la lista de archivos afectados, indicando además si fueron añadidos, modificados o eliminados.)
 
 -graph (Muestra un gráfico ASCII con la historia de ramificaciones y uniones.)
+
+git log --since=1.week (Mostrar todas las confirmaciones dese una semana, se valen n semanas.)
+
+git log --since=1.year
+
+git log --since=1.hour
+
+git log --since=1.minutes
+
+git log --since= "2 years 1 day 3 minutes ago" (Fecha relativa)
+
+git log --since=--author NombreAutor (Se debe investigar más)
+
+git log --since=--committer NombreConfirmador (Se debe investigar más)
+
+Deshacer confirmaciones.
+git commit -m 'Primer commit'
+git add forgotten_file
+git commit --amend
+
+Deshacer una confirmacion.
+git add .
+git status (En esta ocasion git status muestra como deshacer la confirmacion.)
+
+Deshacer una fonfirmacion (Un add .).
+
+git reset HEAD "Buscar.txt"
+
+git checkout NombreDeLaRama (Para cambiar de rama en un mismo repositorio)
+
+git checkout -- NombreDelArchivo (Para desproteger)
+
+git remote (ver todos los repositorios remotos)
+
+git remote -v (ver todos los repositorios remotos y ver la direccion que se usará para leer y escirbir en el remoto.)
+
+git fetch origin (Para traer actualizaciones del codigo desde el remoto.)
+
+git push origin Master(Para enviar actualizaciones al remoto)
+git push NombreRemoto NombreRama.
+
+git pull (Para traer una rama remota y combinarla con la el master o una rama local.)
+
+git remote show NombreRemoto (Para ver detalles de la rama remota.)
+
+git remote rename "MiPrimerRepositorio" "BaseRemotaGit" (Permite renombrar un repositorio remoto.)
+
+git show (Muestra informacion local del repositorio local.)
+
+git remote rm NombreRemoto(Para eliminar un repositorio remoto.)
+
+git tag (Para ver etiquetas del repositorio.)
+
+git tag -l "Un tag" (Muestra una etiqueta expecifica.)
+
+git tag -a "Nombre de la etiqueta anotada" -m "Mensaje de la etiqueta" (Crea una etiqueta permanente llamada etiqueta anotada.)
+
+git show "Nombre de la etiqueta anotada" (Para ver la informacion de una etiqueta expecifica.)
+
+git tag "etiqueta" lw (Para crear una etiqueta ligera.)
+
+git push origen NombreEtiqueta (Para compartir etiquetas, bueno, si se sube un proyecto al remoto las etiquetas deben ser subidas por aparte.)
+
+git push --tags (Para enviar todas las etiqetas.)
+
+:wq (Para salir de los editores de texto, de los logs y otros.)
+
+wq (Para salir de git log y todos sus parametros pasados por argumentos.)
+
+
+git checkout -b NuevaRama NuevaEtiqueta (Para emular el movimiento de etiquetas; NuevaEtiqueta significa tambien el nombre de una etiqueta existente. Pero mejor no usar este comando.)
+ 
+El siguiente comando no es muy valorado en el manual o curso git pero para los que hablamos otro idioma en especial los que hablamos español, es muy util porque nos permite traducir comandos con nombres raros a nombres en español un poco más asimilables. originalmente en el manual esta pensado para abreviar los comandos, peor yo recomiendo que lo uses como para traducir los comandos. 
+Asi mismo puedes usar tanto el alias como el original en la linea de comandos.
+Ejemplo de como se crea un alias para un comando git; esto puede servir para pasar los comandos al español, por ejemplo commit a confirmar. 
+A un comando se le pueden poner n alias (Tantos alias como se quiera).
+Y se usa git Confirmar -m "Listo"
+
+git config --global alias.Confirmar Commit (Comando traductor)
+
+clear (Para borrar la pila de comandos del simbolo de sistema (interfas de linea de comandos).)
+
+
+
+Etapa 2 de esta guia Git avanzado 1, uso de las ramas (Proyectos ramificados del master).
+
+git branch NombreRamaNueva (Crea una nueva rama, este camando ya lo habia visto pero se redunda en el por refuerzo.)
+
+El siguiente comando se anota aquí porque se utilizará en ramificasiones.
+
+git reset HEAD NombreArchivo(Restablece el archivo por medio del apuntador HEAD.)
+
+Comando para ver a que esta apuntadon HEAD.
+
+git log --oneline --decorate
+
+Comando para moverse de una rama a otra.
+Ya se habia anotado anteriormente pero ahora se vera en un uso más avanzado.
+Ademas si observas la carpeta del repositorio veras que los archivos desaparecen y aparecen conforme pasas de una rama a otra.
+Primero pon uno a dos archivos de texto en una rama, luego en otra pon uno puede ser el primero de la primer rama.
+Ahora cambia de rama mientras observas que sucede en tu carpeta.
+Importante si por ejemplo tenias muchos avances en rama 2 y pasaste a rama 1, simplemente la rama 2 ha quedado guardada y si editas archivos en rama 1, los confirmas entonces estos archivos quedaran guardados en la rama 1.
+
+git checkout NombreRama 
+
+vim (Abre el editor de textos de Git, dicho editor se abre en la linea de comandos, o sea lo que escribas, bueno debes valerte de comandos para guardar y para salir.
+Yo prefiero no usarlo.)
+
+Git Branch (Asi solo sin parametros muestra la lista de ramas de tu repositorio.)
+
+
+Bueno si has llegadoa  este punto te daras cuenta que en mi aprendizage tuve que eliminar mi primer repositorio desde la interfas de Windows.
+Pero los archivos estaban a asalvo asi que volví a crear un nuevo repositorio en la carpeta para proteger de neuvo los archivos.
+
+Comando para ver glovalmente todas las ramas, sus detalles y todo lo demas.
+
+git log --oneline --decorate --graph --all
+
+Importante una rama es un archivo con 41kb o sea 41 letras sha-1.
+Lo cual sirve como apuntador.
+Ademas voy por la pagina 52 del libro Pro Git en Español, cuando valla por la 512 (Final) quizas pueda explicar mejor esto.
+Finalmente, le recomiedo a quien este leyendo esto que complemente esta guia con el libro Pro Git en Español.
+
+Dos formas de crear una rama nueva y crear un apuntador a la nueva rama.
+
+Forma 1 te envia directo a la nueva rama.
+
+git checkout -b NuevaRama
+
+Forma 2 en dos pasos.
+git branch NuevRama
+Git checkout NuevRama
+
+Comando para fucionar dos ramas, util para fucionar un trabajo perfeccionado con la rama master. Bueno automaticamente la fuciona con la rama master.
+Pero conforme avance me daré cuenta que quizas por medio de otro parametro será posible indicar 
+Importante ademas, debes moverte a la rama donde quieres que se fucionen los datos, por ejemplo para fucionar x rama en master, debes moverte a master primero y luego indicar que rama fucionar. De esta manera puede ubicarse en Rama1 para fucionar los datos de Master en rama1.
+
+git merge NombreRama_a_fucionar_con_otras.
+
+Pasos para fucionar.
+git checkout Master
+git merge NombreRama
+
+Listo, archivos fucionados.
+
+Borrar una rama.
+Comando para borrar una rama. Es util despues de editar esa rama, asegurarse que todo esta bien, finalmente fucionarla con la rama master o con alguna otra.
+YA puedes eliminar la rama.
+
+git branch -d NombreRama
+
+Finalmente me siento feliz porque he logrado hacer mi primera fucion de ramas en Git.
+Esto a la noche del dia domingo 6 de septiembre del 2020.
+
+Conflictos que pueden surgir con git merge NombreRama
+Estos son conflictos de fucion de ramas, git deja la solucion de estos conflictos en manos del usuario.
+
+Si se presenta alguno se debe usar.
+git status
+Para ver cual archivo se fuciona y cual no. O cual se fuciona primero y cual de segundo.
+
+Comando para resolver graficamente el conflicto.
+git mergetool
+
+Segun parese, al usarse "git mergetool" primero se debe tener una herramienta grafica configurada.
+
+Forma de usar "git mergetool" para indicar la herramieta grafica.
+git mergetool NombreHerramienta
+
+Ejemplo:
+git mergetoll diffmerge
+
+Al finalizar la resolucion del conflicto de fucion se debe usar el comando.
+git commit -m "Comentario"
+
+Comando para ver la lista de ramas.
+Git branch
+
+Comando para ver el ultimo commit (La ultima confirmacion de datos) en cada rama existente en la base git(Repositorio git) de tu proyecto.
+
+git branch -v
+
+Comando para ver las ramas fucionadas con la rama activa.
+git branch --merged
+
+Al usar "git branch --merged" aparese una lista de ramas más la rama activa, todas las ramas que no tengan un asterisco o no esten coloreadas de verde como en el caso de mi computadora, se pueden eliminar sin peligro, ya que sus datos se han fucionado con la rama activa.
+
+Para ver una lista de ramas sin fucionar se debe usar el comando.
+
+git branch --no-merged
+
+Git remoto.
+Ramas remotas.
+
+Comando para clonar una repositorio remoto y a la vez cambiarle el nombre.
+
+Git clone -o NuevoNombre
+
+Comando para actualizar localmente la rama ramota (Rama clonada)
+
+git fetch origin
+
+El comando "git fetch origin" se trae las nuevas actualizaciones de la red a la carpeta local.
+
+Para incluir por decirlo asi un repositorio espejo (Repositorio remoto pero en un segundo servidor), se debe usar el comando.
+
+git remote add DireccionURL o direcciongit 
+
+Para descargar las actualizaciones del segundo repositorio remoto.
+
+git fetch NombreRepositorioRemoto2
+
+Comando git para guardar tu rama local en una rama de algun repositorio remoto con derecho de escritura.
+NombreRama, tiene que coincidir con el nombre de la rama remota.
+
+git push origin NombreRama
+
+Subir una rama a algun origin(Respositorio remoto), a su si es una rama ramota con un nombre diferente entonces se indica el nombre local y el nombre diferente.
+
+git push origin NombreRamaLocal:NombreRamaRemota
+
+Uso de contraseñas.
+Al usar el formato HTTPS para transferir datos con git entonces se pedirá la contraseña cada vez que subas datos al remoto.
+Pero se puede evitar escribir la contraseña tantas veces en la secion por medio de...
+
+git config --global.helper cache
+
+Al usar fetch para recuperar actualizaciones de la rama remota, no se recuperan archivos editables, para lograrlo se debe usar el siguiente comando. (Lo que se recupera es un puntero o punto de referencia de la rama remota).
+Bueno son dos comandos.
+Comando Merge para combinar la rama remota con mi rama local.
+Recordar que cuando se usa Merge se debe estar en la rama que se quiere combinar.
+
+git merge origin/RamaRemota
+
+Para crear al 100% una rama local de una rama remota use.
+Rama, se refiere a la rama remota y local la cual se llamará igual que la rama remota.
+De esta manera en tu repositorio local clonado de algun remoto obtendras una rama remota actualizada a la fecha en la que usaste el comando "git checkout -b Rama origin/Rama". 
+
+git checkout -b Rama origin/Rama
+
+Dandole seguimiento a las ramas(tracking branch).
+El clon Master de un origin (Repositorio remoto) es una rama de seguimiento por defecto.
+O sea se puede usar git pull para fucionar el remoto con el master local.
+
+Pero si ademas del clon master tienes ramas remotas entonces se debe hacer.
+A lo que entiendo con esto es que dentro del mismo clon se pueden colocar ramas de diferentes repositorios remotos.
+Comando indicado.
+
+git checkout --track origin/NombreRamaRemota
+
+
+Anteriormente vi este comando "git checkout -b Rama origin/Rama", bien, con este comando se puede crear una rama local de un remoto pero con un nombre local diferente.
+NombreRamaLocal puede ser un nombre diferente de NombreRamaRemota.
+
+git checkout -b NombreRamaLocal origin/NombreRamaRemota
+
+Asignarle una rama remota a una rama local, tambien para cambiala rama a la que se le esta dando seguimiento.
+Comanod 1.
+
+git branch -u origin/RamaRemota
+
+Comando 2.
+
+git branch git branch --set-uostram-to Rama origin/Rama
+
+Forma rapida de usar los comandos anteriores (1 y 2) de asignacion de ramas.
+Comando 1.
+
+git merge @{u}
+
+Comando 2.
+
+git merge @{upstream}
+
+Para traerse los cambios de los remotos (origin) se debe usar el comando.
+
+git fetch --all
+
+Y para ver los estados de las ramas locales con las ramas remotas se debe usar.
+
+git branch -vv
+
+Comando para poner una rama creada localmente en un origen remoto.
+
+git push origin NombreRamaLocal
+
+Poner rama local en rama remota forma alternativa.
+
+git push -u origin NombreRama
+
+Usar comandos para trer ramas y fucionarlas.
+En lineas anteriores he visto algunas bases de esto, ahora lo veré en forma más avanzada.
+
+Con git fetch se traen las actualizaciones de la rama remota o del origen remoto pero no se fucionan ya sea con el master local o con alguna rama local.
+Para fucionarlas hay varias maneras.
+Comando a usar para fucionar datos remotos numero 1.
+
+git pull
+
+Eliminar ramas remotas.
+
+git push origin --delete NombreRamaRemota
+
+Reorganizacion de ramas, es casi lo mismo que fucionar ramas.
+
+git rebase master
+
+Comando para actualizar una rama del master pero usando una rama cliente y no la rama del servidor. Lo que hace este comando es basarse en la rama padre y luego combina los datos de la rama server y la rama cliente en el master o en la rama en la que se este trabajando en ese momento.
+
+Bueno en realidad son en 3 pasos.
+
+git rebase --onto master RamaDelServidor RamaCliente
+
+Pasar a la rama principal.
+
+git checkout master
+
+Convinar la rama cliente con Master.
+
+git merge RamaCliente
+
+Rama server sobre rama master.
+
+git rebase RamaMaster RamaDelServidor
+
+Luego colocarse en master para convinar.
+
+git checkout RamaMaster
+git merge RamaDelServidor
+
+Paso final.
+Despues de convinar ramas entonces, las ramas de origen se pueden eliminar porque sus actualizaciones se han convinado en una sola rama.
+
+git branch -d RamaCliente
+git branch -d RamaDelServidor
+
+Inconvenientes de rebase.
+Nunca usar git commit -m "Comentario" si se ha usado push hacia un repositorio.
+Lo correcto es dejar en manos del administrador del proyecto la fucion de ramas despues de revisar los cambios y tus notas.
+Lo correcto es que tengas una rama remota que sea solo tuya y que los demas usuarios o el administrador la fucione cada ves que lo considere.
+De no hacerse así puedes joder todo el proyecto o al menos hacer que sea muy dificil de reestablecer por los demas usuarios e incluso tu mismo.
+
+Comando para sobreescribir una rama remota. Si trabajas solo usalo, si trabajas con un grupo mejor no a menos que todo el grupo este de acuerdo.
+
+git push --force
+
+Esto de los incombenientes de fucion, push, pull, fetch en muchos casos lo que hace es crear muchas ramas inecesarias generando un enramado confuso, dificil de entender.
+Git lo hace así para salvar por ejemplo dos confirmaciones iguales. Segun lo que he leído en Pro Git pagina 95(100/512) y lo que he asimilado asi es. En formato pdf usando FoxitReader.
+
+Comando para evitar los inconvenientes de fuciones no deseadas. Creando asi una reorganizacion paralela al trabajo sobreescrito en el remoto. Localmente lo que hace es colocar las ramas despues de las confirmaciones sobreescritas.
+Solo funciona si son ramas muy similares, casi iguales.
+
+git rebase Rama/master
+
+Dos comandos de evitar los inconvenientes de la fucion o reorganizacion, en forma larga.
+Comando corto.
+
+git pull --rebase
+
+Comando largo.
+
+git fetch
+
+git rebase Rama/master
+
+Hacer que --rebase este activada por defecto en git pull, o sea cada vez que se usa git pull se asume como git pull --rebase. Debes usar esta opcion solo si trabajas solo en un repositorio remoto vs local. Pero si trabajas con un grupo mejor no actives esta opcion porque como dije antes, puedes echar a perder el proyecto.
+
+got config --global pull.rebase true
+
+En caso que hayas usado git pull --rebase hacia un remoto entonces y trabajas con un grupo de personas, entonces debes comunicar que todos ejecuten el comando "git pull --rebase" para solucionar levemente el problema. Para mejores detellas mejor leer los temas relacionados en el libro Pro Git en español.
+
+Reorganizar y Fusionar son dos acciones diferentes en Git.
+En este tema voy a ver cual es la mejor opcion para trabajar en git.
+
+La recomendacion es reorganizar repositorios locales que nunca se hayan compartido, esto permite crear un historial limpio sin confirmaciones desastrosas donde el codigo del proyecto fallaba por todos lados.
+Aunque lo correcto es que el historial de tus confirmaciones cuente la historia como realmente sucedio, algunas confirmaciones desastrosas, otras mas o menos, otras buenas y otras relamente buenas.
+
+
+Etapa 3, git avanzado 2.
+
+Creacion de mi propio servidor git.
+
+Primero elegir con que protocolo se puede comunicar con mi servidor.
+En un repositorio remoto o servidor git lo unico que existe es una carpete basica llamada ".git" sin los archivos (Solo puras confirmaciones (commit)).
+
+Lista de protocolos para mi servidor git.
+1) Local Protocol.
+2) HTTP.
+3) Secure Shell (SSH).
+4) Git.
+
+Detalles de "Local Protocol".
+El repositorio remoto es otra carpeta en el disco duro.
+Existe peligro de perdida de datos ya que estaria en una sola computadora y no tendria Servidores espejos.
+
+Comando para clonar con Local Protocol.
+En Windows.
+git clone C:\git/project.git
+
+En Linux.
+git clone /opt/git/project.git
+
+Una que puede funcionar en ambas plataformas, he visto este tipo de direcciones en Windows. "file://" permite una copia en limpio sin muchos detalles, pero no es la mejor opcion.
+
+git clone file:///opt/git/project.git
+
+
+Comando para agregar un ropositorio local a un servidor git con protocolo "Local Protocol".
+
+El comando esta para Linux.
+
+git remote add local_proj /opt/git/project.git
+
+Yo intentando hacerlo en Windows.
+
+git remote add local_proj c:/git/project.git
+
+Protocolo HTTP.
+HTTP Inteligente.
+Comando a usar.
+
+git clone https://example.com/gitproject.git
+
+Protocolo SSH.
+Comando a usar.
+
+git clone ssh://user@server/project.git
+
+Comando con la sintaxis scp del protocolo SSH.
+
+git clone user@server:project.git
+
+Protocolo Git.
+Este protocolo se combiana con uno o varios de los anteriores para que los que tienen acceso de escritura puedan hacer "Push", y los demas que puedan clonar y leer el proyecto o repositorio.
+Se necesita habilitar el puerto 9418, se debe configurar xinetd y otros similares. O sea a la larga es igual de complicado que todos los demas. Finalmente xinetd y similares en la mayoria de los casos no esta instalado en el sistema operativo que se use.
+
+Configuracion GIT en el servidor.
+Comando para clonar unicamente la carpeta .git hacia un servidor remoto o a una carpeta local diferente. 
+
+git clone --bare my_project my_project.git
+
+Comando para clonar un repositorio bacio en el servidor.
+En sistema Linux.
+
+scp -r my_project.git user@git.example.com:/opt/git
+
+Me imagino que en Windows solo copie y pegue la carpeta .git en cualquier lado.
+Si en Windows es asi.
+
+Despues usas este comando en Windows el cual logré mediante prueba y error hasta que me funcionó.
+
+git clone --bare "/c/Biblioteca de Rafael/Repositorios Git/Mi base Git" "~/Desktop/GENERAR BARRAS/GENERAR BARRAS/Mi base Git"
+
+Cuando se vea una respuesta como:
+Cloning into bare repository '~/Desktop/GENERAR BARRAS/GENERAR BARRAS/Mi base Git'...
+done.
+ 
+Entonces se ha clonado hacia el servidor local en una carpeta comun y silvestre.
+
+Y si estas en el repositorio que hace de local y pones "git status" si no has modificado ningun archivo local no sale nada, pero de lo contrario salen los modificados.
+Entonces se agrega el modificado o los modificados, pero sucede algo interesante, todos los archivos que esten en la carpeta raíz donde pusiste la carpeta .git se agregaran.
+Se supone que yo deberia haber puesto la carpeta .git en una carpeta bacia y eso es lo correcto. Pero queria experimentar.
+Sucederá que si desde otro repositorio que hace de local en otra carpeta clono hacia el servidor que esta en una carpeta con archivos entonces al darle "git add ." al local entonces de nuevo esos archivos se agregaran al segundo repositorio.
+Interesante experimento, pero no lo hagas, ya que al colocar la carpeta .git debes crear o buscar una carpeta raíz bacia para que no suceda esto.
+
+Bueno siguiente tira por tierra el copiar la carpeta .git para colocarla en una carpeta bacia.
+Solo basta con usar el comando.
+
+git clone --bare "/c/Biblioteca de Rafael/Repositorios Git/Mi base Git" "/c/Biblioteca de Rafael/Repositorios Git/ServidorGitLocal"
+
+Para clonar el Repositorio local hacia una carpeta bacia, no es necesario que exista una carpeta .git en dentro de esa carpeta raíz bacia.
+Ahora a ver que sucede si realizo la misma clonacion hacia la carpeta raís "ServidorGitLocal"...
+
+Un rato despues.
+Ejecuté el mismo comando desde otro repositorio local hacia "ServidorGitLocal", la respuesta es...
+
+git clone --bare "/c/Biblioteca de Rafael/iA ChatBot/Red neuronal de Luiz" "/c/Biblioteca de Rafael/Repositorios Git/ServidorGitLocal"
+fatal: destination path 'C:/Biblioteca de Rafael/Repositorios Git/ServidorGitLocal' already exists and is not an empty directory.
+
+La respuesta es, no se puede clonar hacia ese servidor (Carpeta) porque ya hay un repositorio clonado ahí.
+Lo que me da a entender que hay 2 caminos, el primero crear una rama en "ServidorGitLocal" pero desde el repositorio que esta en "Red neuronal de Luiz".
+La segunda simplemente clonar hacia otra carpeta bacia.
+En mi caso me sirven ambas pero es más facil clonar hacia una carpeta bacia.
+Así se crea un repositorio remoto local en una carpeta fuera del repsoitorio original.
+Por ejemplo estoy creando un programa en .net o en Java en x carpeta, ahí mismo esta el repositorio local .git; si por accidente borro la carpeta del proyecto entonces, tambien borro el repositorio.
+Pero si he clonado hacia una carpeta local, puedo borrar por accidente en teoria la carpeta del proyecto programado junto con .git, pero desde otro repositorio bacio puedo traerme la rama salvada en la carpeta local que esta sirviendo de sevidor git.
+Para traerse esa informacion se debe clonar hacia el local. Con...
+
+git clone "/c/Biblioteca de Rafael/Repositorios Git/ServidorGitLocal"
+
+Respuesta afirmativa.
+
+Cloning into 'ServidorGitLocal'...
+done.
+
+Una ves hecho esto, se puede mover la carpeta que apareció dentro del repositorio local a otra parte donde no exista un repositorio (Se debe sacar ServidorGitLocal de la carpeta Red neuronal de Luiz). De no hacerse así cuando se use el comando git add . entonces, se le pedirá usar comandos para manejar un submodulo o subproyecto.
+
+Para actualizar el servidor local git con el repositorio local se usa.
+
+git push --set-upstream "/c/Biblioteca de Rafael/Repositorios Git/ServidorGitLocal" ExperimentoConServerLocal
+
+"ExperimentoConServerLocal" es el nombre de la rama en la que estoy trabajando en este momento en mi repositorio local.
+Y si tiene un clon en una tercera carpeta el se puede descomprimir los archivos con esto.
+
+Me traigo las actualizaciones pero siguen dentro del repositorio "git fetch"; luego descomprimo el nuevo contenido con "git pull". 
+
+El sigueinte comando le da acceso a clonar a un usuario desde otra computadora pero solo en Linux; debo investigar como se hace en Windows.
+Ademas, este parese un comando basado en el protocolo ssh.
+
+git clone user@git.example.com:/opt/git/my_project.git
+
+$ ssh user@git.example.com
+$ cd /opt/git/my_project.git
+$ git init --bare --shared
+
+..."--shared" permite agregar permisos de escritura en grupo al repositorio recien creado.
+
+Algunas conclusiones preeliminares de servidores locales, al crear un servidor local es unicamente para un repositorio a la vez. O se si el proceso se repite desde otro repositorio local se debe clonar hacia una carpeta bacia.
+
+Finalmente recuerde usar el comando "git clone --bare DireccionRepositorioLocal DireccionCarpetaBacia" hacia una carpeta bacia que no tenga archivos y que dentro de ella no exista una carpeta .git; asi mismo, "DireccionRepositorio" es la carpeta bacia hacia donde va el repsitorio local para convertirse en servidor.
+
+Generando claves publicas.
+
+Para saber si existen claves usar el comando.
+
+ls -al ~/.ssh
+
+
+No hay mucho de esto en pro Git en español se va casi en puras instrucciones casi nada de comandos.
+Comando para ver detalles de las claves en caso de existir.
+Con este me pasó a la carpeta ~/.ssh
+
+cd ~/.ssh
+
+Con este otro comando ls.
+Se supone que me debe mostrar:
+authorized_keys2 id_dsa known_hosts
+config id_dsa.pub
+Pero me muestra:
+$ ls
+id_rsa  id_rsa.pub
+
+Solo se debe buscar dos archivos uno con extencion *.pub y el otro sin extencion *.
+(El simbolo * en la extencion de archivos significa "Cualquier nombre que tenga el archivo".)
+Este archivo id_rsa.pub es mi clave publica.
+Este otro archivo id_rsa sin la extencion de archivo es mi clave privada.
+En caso de no encontrar estos archivos con la linea de comandos o no encontrar la carpeta ~/.ssh, la cual solo es visible con la linea de comandos, lo se porque fui personalmente a buscarla en el arbol de carpetas de la carpeta .git de mi repositorio.
+Entonces, debe usar un programa o paquete llamado MSysGit en Windows.
+Para mejores detalles ver la pagina 106(111/512) de Pro Git en español.
+
+Comando para generar las claves.
+
+ssh-keygen
+
+Se le presentará:
+Generating public/private rsa key pair.
+Enter file in which to save the key (/c/Users/HP/.ssh/id_rsa): NuevoNombreDelArchivo
+
+Luego debes poner una la clave privada. Opcionalmente puede llamarse igual que el archivo pero no recomendado si eres de las personas que todo debe estar super privado.
+
+Enter passphrase (empty for no passphrase): ClavePrivada.
+
+Finalmente, en caso de no llenar los campos entonces sucederá como textualmente lo he copiado de Pro Git en español.
+
+$ ssh-keygen
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/schacon/.ssh/id_rsa):
+Created directory '/home/schacon/.ssh'.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/schacon/.ssh/id_rsa.
+Your public key has been saved in /home/schacon/.ssh/id_rsa.pub.
+The key fingerprint is:
+d0:82:24:8e:d7:f1:bb:9b:33:53:96:93:49:da:9b:e3 schacon@mylaptop.local
+
+Te generará una clave provada en forma aleatoria.
+Pero tendras la ventaja que no tendras que escribirla cada vez que se solicita la clave, adiferencia si la escribirste entonces tendras que escribirla cada vez que se solicite, pero es bueno así no se te olvida.
+
+Ultimos detelles de este tema, muy importantes.
+
+Este tema me permite crear mi clave y nombre de usuario en Git pero, tambien me permite crear los demas usuarios con sus claves en caso que este en modo servidor.
+Los archivos de usuario .pub se le envian a los usuarios con correo digital. y ellos colocaran el archivo en su lugar.
+Ver pagina 106(111/512) de Pro Git en español.
+
+Cofigurando el servidor Git.
+Al fin llegué a una parte bien emocionante.
+Ver pagina 107(112/502) de Pro Git.
+
+Primero se cran una serie de claves publicas para los diferentes programadores que conforman tu proyecto.
+Luego creas una carpeta llamada .SSH, esto en Linux, tengo que probarlo en Windows.
+Colocas todos los archivos de claves publicas en la carpeta .SSH; el archivo de las claves publicas se llama authorized_keys, en el clual van las claves de tus compañeros de trabajo.
+Como dije anteriormente, mejor ver pagina 107(112/502) de Pro Git, para comprender el tema, ayudese con videos de personas que ya lo hayan hecho muchas veces. Recuerde que al igual que usted, yo tambien estoy aprendiendo conforme escribo este documento.
+
+Comando para crear un repositorio git que servirá como servidor git, este repositorio estará bacio.
+
+git init --bare
+
+Importante cada vez que se crea un nuevo proyecto, ya sea programado, o de algun archivo, o grupo de archivos digitales se debe usar el comando "git init --bare" para crear un nuevo repositorio servidor.
+
+Ver pagina 108(113/502) de Pro Git para acceder al servidor git pero desde Linux.
+Por mi parte tengo que investigarlo para realizarlo en Windows.
+Continuando, uno puede realizar estas taras con algun programa con interfaz grafica en Windows.
+
+Las siguientes lineas de comandos son para el primer commit en un git server en Windows pero omitiendo los protocolos de entrada a la maquina, eso lo dejo a libre decision del lector para que lo investigue desde otras fuentes.
+
+...
+git init
+git add .
+git commit -m "Primer commit"
+git remote add origin git@NombreDelServidor:RepositorioRemotoGit
+git push origin master
+
+"RepositorioRemotoGit" significa direccion de la carpeta raíz donde esta la carpeta .git; tambien se puede expecificar el archivo .git de la carpeta .git ("Direccion/NombreRepositorio.git").
+
+Desde otra maquina o desde otra carpeta se puede clonar con.
+
+git clone git@NombreServidor:DireccionDelRepositorioRemoto
+
+Ademas desde ese clon se puede enviar push.
+
+git commit -am "Enviando push desde el clon"
+git push origin master
+
+
+Finalizando, se deben crear las claves publicas y demas configuraciones para que se pueda realizar "git push origin master". Lo mejor es realizar desde el local (git clone --bare "/c/Biblioteca de Rafael/iA ChatBot/Red neuronal de Luiz" "/c/Biblioteca de Rafael/Repositorios Git/ServidorGitLocal").
+No obstante la forma correcta es así: (git push "/c/Biblioteca de Rafael/Repositorios Git/RepositorioServidorB" master)
+Porque la palabra origin a veces no funciona, por ser una palabra ambigua para el git segun mi criterio de aprendis.
+Ademas, del lado del servidor si en el shell de git escriber "git log -p -1" verás las actualizaciones realizados con push desde el repositorio local, las cuales ya estan el el repositorio servidor. Esta es la manera de comprobar que la informacion llegó al servidor.
+
+Dominio Git del servidor pagina 109(114/512) de Pro Git.
+Sirve para crear scrips de dominio para indicar a la maquina servidor que permisos tienen los usuarios. Si hay cortafuegos entonces habilitar el puerto 9418.
+Son script del tipo Daemon.
+Mejor usar un Linux como ubunto para practicar lo de los dominios; no obstante, recomiendo investigarlo en otras fuentes para realizar lo mismo en Windows.
+
+HTTP para tener acceso anonimo y autentificado al mismo tiempo.
+Es el acople con un archivo cgi de git con el servidor apache y con el HTTP.
+Ela rchivo se llama "git-http-backend".
+
+Un poco descepcionado, esperaba tambien documentacion para realizarlo en Windows pero solo viene para Linux.
+Me veo forzado a investigar este tema y otros desde otras fuentes, con lo cual lo dejaré para un segundo entrenamiento donde abordaré los temas que no fueron puestos en practica por mi durante este aprendizage.
+Asi mismo, es malo ya sea tener una maquina ficica o virtual con un servidor Linux para Git.
+Ya que solo servirá para enviarle repositorios y clonarlos o hacer pull...
+
+Cuando hay 2 usuarios trabajando en un mismo repositorio, el usuario 1 lanza un commit ademas, hace push para actualizar el master del servidor (origin); si el usuario 2 hace commit localmente todo bien, pero si quiere hacer push hacia el servidor primero debe fucionar los detos del servidor con su repositorio local (Su rama local), este tema las fuciones se vió lineas arriba. Pero no se habia abordado este detalle.
+
+Comando para identificar errores de espacios en blanco.
+Git diff --check
+
+Investigar git add --patch
+
+Comando para ver el historial de confirmaciones (commits) bien formateados.
+
+git log --no-merges
+
+Ver el historial de una sola rama del repositorio.
+Comando para ver el historial de confirmaciones (commits) bien formateados.
+
+git log --no-merges NombreRama
+
+Comando para crear una nueva rama y pasar inmediatamente a esa nueva rama, todo al mismo tiempo.
+
+git checkout -b NuvaRama
+
+Si el comando "git checkout -b NuevaRama" lo usé para experimentar entonces, con este otro comando borraré la nueva rama.
+
+git branch -b NuevaRama
+
+Ahora voy a crear un repositorio experimental donde exitirán dos ramas, el master y alguna otra rama.
+
+Git init
+Coloco dos archivos de texto.
+Escribo una linea o renglon en cada uno.
+Luego...
+git status
+git add .
+got commit -m "Primer commit dia martes 6 de octubre del 2020"
+Muestra solo el master
+git branch 
+git branch B
+Muestra la rama master y la rama B.
+git branch 
+Pasa a la rama B.
+Por supuesto los dos archivos de texto estan en B.
+git checkout B
+Realizo modificasiones en el archivo de texto dos o en uno de ellos pero en solo uno.
+Por ejemplo puedo borrar el renglon original, escribiendo uno nuevo y ademas agregando una nueva linea (Renglon).
+Luego...
+git status
+git add .
+git commit -m "Agregando commit (Confirmacion) en la rama B"
+Viendo que ha cambiado en B con detalles.
+git log -p --all
+Ahora paso a master.
+git checkout master
+Ahora fuciono B en master.
+git merge B
+De nuevo.
+git log -p --all
+Ademas veo los archivos por medio del explorador de archivos del sistema operativo a ver si el experimento dio resultado.
+El resultado final es que la fucion es confiable.
+En dado caso que sean 3 ramas, y 3 programadores, el de la rama 2 en realizar una fucion en master lo hace de forma normal, en cambio el de la rama 3 bebe fucionar master con la rama 3 para luego mandar su confirmacion o actualizacion. De esta manera se sigue el estandar como si se estubuera trabajando con un servidor remoto.
+Pero me pondré un nivel de dificultad un poco más avelvado, supongo, que si realizo todo lo anterior pero antes de la fucion con master, realizo uno o dos commits en master en el archivo no modificado y de paso agrego una linea al archivo que traera cambios de la RamaB.
+git checkout B
+Realizo algunos cambios en algun archivo de texto para la rama B.
+git status
+git add .
+git commit -m "Nuevos cambios"
+Ahora paso a master
+git checkout master
+Realizo algunos cambios en uno o en los dos archivos de la rama master, en especial agrego uno o dos lineas por archivo.
+git status
+git add .
+git commit -m "Cambios en master"
+Estoy listo para fucionar B en master, pero claro ambas ramas en paralelo tienen cambios
+¿A ver que sucederá?
+git merge B
+
+El resultado es que sale un conflicto de fucion que se debe resolver manualmente dentro de los archivos.
+Se ve en pequeña escala algo asi, pero imaginese si sucede algo así con un proyecto grande.
+
+<<<<<<< HEAD
+Linea uno actualizada.
+Ya
+=======
+Linea uno.
+   esta listo.
+>>>>>>> RamaB
+
+Por lo tanto lo mejor es realizar la fucion primero y luego trabajar en master, bueno de hecho el master se deja para fuciones estables de las ramas del proyecto.
+En ese caso si alguien fuciona B en master, otra persona debe primero fucionar master en C para trabajar en C y luego fucionar C en master.
+En Git Pro vienen más detalles para resolver el conflicto levemente en la linea de comandos, 
+tambien se recomienda investigar en videos y otras fuentes.
+
+Comando para pedir un resumen de confirmaciones en un servidor.
+
+git request-pull origin/master myfork
+
+Ramas Puntuales Pagina 145(150/512) de Pro Git.
+
+
+Comando para crear una nueva rama, pasar a ella inmediatamente.
+Es lo mismo que unas lineas arriba.
+Pero hay algo nuevo, las ramas pueden tener las iniciales del programador, despues un slash (barra inclinada), finalmente el nombre de la rama.
+"Ra" son las dos primeras iniciales de mi primer nombre Ra=Rafael.
+
+git checkout -b Ra/TemaRamasPuntuales master
+
+Comando para integrar una rama que ha sido enviada por correo digital al repositorio (Un archivo *.patch). Por cierto el tema para generar los archivos *.patch esta unas paginas antes del tema "Ramas Puntuales Pagina". Importante, este comando o integra la rama o no la integra (Si hay algo nocoincidente entonces se cancela todo en forma automatica).
+Pero de los dos comandos que existen par aintegrar ramas (Para el caso de los archivos *.patch integrar parches) al repositorio. Esto es aplicar los parches recividos por email.
+
+git apply NombreDelArchivoParche.patch
+
+Comando para comprobar un archivo *.patch antes de integrarlo.
+Con este comando te daras cuenta si se puede aplicar (Integrar) el parche o no.
+Si no aparence ningun mensaje en la linea de comandos con la palabra "error..." entonces si se puede integrar.
+
+git apply --check NombreDelArchivoParche.patch
+
+Finalmente "git apply NombreDelArchivoParche.patch" se recomienda para archivos *.patch antiguos.
+
+Integrar una rama con format-patch (git am) pagina 147(152/512) de Git Pro.
+
+"git am" lee la informacion directamente de un mensage de email.
+
+git am NombreArchivoParche.patch
+
+Comando para ver la informacion del commit más reciente.
+
+git log --pretty=fuller -1
+
+Esto de la integracion de ramas desde archivos *.patch funciona si no hay muchas diferencias entre la rama receptora y el archivo *.patch. Tambien, pueden surgir problemas si el archivo *.patch necesita que primero se aplique otro archivo *.patch para poder integrarse.
+
+Comando para resulver un problema con un archivo *.patch (Primero debes editar o resolver internamente el archivo *.patch(Trabaja en la rama y luego vuelve a generar el archivo *.patch)).
+
+git am --resolved
+
+Comando para salirse del proceso de aplicado del parche.
+
+git am --skip
+
+comando para cancelar el parche revirtiendo sus efectos en la rama receptora.
+
+git am --abort
+
+Comando para aplicar un parche (Archivo *.patch) y al mismo tiempo resolverlo por medio de una fucion a 3 bandas, nota tengo que averiguar el consepto "A tres bandas en lo que respecta a Git".
+
+git am -3 NombreArchivoParche.patch
+
+Bueno, un merge (fusion) a tres bandas en resumen es recrear el arbol del repositorio para poder encagar el parche en algun lado.
+
+En coso que se un correo o se un archivo mbox (Relacionado con el sistema Linux) se debe usar este comando, porque en muchas ocasiones vienen varios parches en un solo mensaje.
+
+git am -3 -i Archivo_mbox
+
+Finalmente, el comando "git am -3 -i Archivo_mbox" te preguntará por cada parche que venga en el correo (Archivo de correo mbox).
+
+Recuperando ramas remotas pagina 149(154/512) de Pro Git
+
+Comando para visualizar los posibles efectos al integrar una rama puntual en la rama que yo quiero (Algo asi como fucionarla con mi rama). Pagina 15(156/512) de Pro Git
+Este comando (git diff NombreRama) se usa despues de "git merge-base Rama_por_fucionar RamaActiva".
+
+git merge-base Rama_por_fucionar RamaActiva 
+
+git diff RamaActiva 
+
+Comando para una comparacion entre el commit más nuevo de mi rama con respecto al commit ancestro comun de otra rama. El nombre de la primera rama a comaprar debe estar pegando a los 3 puntos y los 3 puntos deben estar pegando a la segunda rama a comparar.
+
+git diff master...NombreRama
+
+Comando para resolver conflictos en forma automatica, esto cuando se estan integrando ramas al repositorio. (rerere=reutilizar resolucion grabada.)
+
+git config --global rerere.enabled true
+
+Comando para crear etiquetas. Recomendado no firme las etiquetas, ver pagina 157(162/512) de pro Git.
+
+git tag -s NombreEtiqueta -m "Esta es una etiqueta."
+
+Comando para saver la version de Git creo.
+
+git --version
+
+Comando Zip
+
+Comando para archivar el repositorio o una rama del repositorio en un archivo tar o en un archivo zip. Yo prefiero el zip. Este comando realmente es super util.
+
+git archive NombreRama --prefix='NombreDeLaCarpetaInternaDelZip/' --format=zip > 'NombreDelArchivoZip'.zip
+
+Comando para ver un resumen de todos los commits del repositorio. 
+Para más informacion ver pagina 159(164/512) de Pro Git.
+
+git shorlog --no-merges NombreRama
+
+Recuerde usar ":wq" luego precione la tecla Enter para salir del resumen.
+
+
 

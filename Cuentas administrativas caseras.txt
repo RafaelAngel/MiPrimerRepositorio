@@ -1,0 +1,9 @@
+Cuentas caseras para administrar mi dinero.
+
+Cuenta de inversion. 15%
+
+Cuenta de juegos. 5%
+
+Cuenta de cualificasion. 10%
+
+Cuenta de gastos. 70%

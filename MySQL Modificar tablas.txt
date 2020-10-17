@@ -1,0 +1,8 @@
+Entrenamiento Modificar tablas en MySQL
+
+#Modificar una tabla para colocarle un comentario a nivel de columna.
+ALTER TABLE `facturadigital`.`tproveedoresgenerales` CHANGE COLUMN `RegistroDeEmpresa` `RegistroDeEmpresa` CHAR(50) NULL DEFAULT '0' COMMENT 'Quizas significa el nombre de la empresa' ;
+
+
+#Modificar una tabla para colocarle un comentario a nivel de tabla base.
+ALTER TABLE `facturadigital`.`tproveedoresgenerales` COMMENT = 'Tabla de proveedores.' ;

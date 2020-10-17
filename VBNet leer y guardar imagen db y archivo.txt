@@ -1,0 +1,48 @@
+Imports System.Drawing
+Imports System.Drawing.Imaging
+Imports System.IO
+
+Public Class Form1
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        MsgBox("eo")
+        PictureBox1.Image = Image.FromFile("C:\Users\Micarpeta\imagen1.jpg")
+        Dim miImagenBytes() As Byte = Imagen_Bytes(Image.FromFile("C:\Users\Micarpeta\imagen2"))
+        PictureBox1.Image = Bytes_Imagen(miImagenBytes)
+
+    End Sub
+
+    Private Function Imagen_Bytes(ByVal Imagen As Image) As Byte()
+        'si hay imagen
+        If Not Imagen Is Nothing Then
+            'variable de datos binarios en stream(flujo)
+            Dim Bin As New MemoryStream
+            'convertir a bytes
+            Imagen.Save(Bin, Imaging.ImageFormat.Jpeg)
+            Bin.Dispose()
+            'retorna binario
+            Return Bin.GetBuffer
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Private Function Bytes_Imagen(ByVal Imagen As Byte()) As Image
+        Try
+            'si hay imagen
+            If Not Imagen Is Nothing Then
+                'capturar array con memorystream hacia Bin
+                Dim Bin As New MemoryStream(Imagen)
+                'con el método FroStream de Image obtenemos imagen
+                Dim Resultado As Image = Image.FromStream(Bin)
+                Bin.Dispose()
+                'y la retornamos
+                Return Resultado
+            Else
+                Return Nothing
+            End If
+        Catch ex As Exception
+            Return Nothing
+        End Try
+    End Function
+
+End Class

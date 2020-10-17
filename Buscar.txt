@@ -1,0 +1,15 @@
+Git, Mercurial, Bazaar o Darcs
+CVS, Subversion,
+Perforce, Bazaar,
+http://msysgit.github.io/
+git clone https://github.com/libgit2/libgit2 mylibgit
+Crear controles y generar evento Click en tiempo de ejecución en VbNet o C#
+Página web a Pantalla Completa con Trasiciones CSS3   FullPagejs
+Programa la Página Principal de Youtube con HTML, CSS, Flexbox y GRID
+Javascript, Subir Imagenes con Progressbar
+Crea paso a paso una app con Reactjs y Redux
+133 Programación en C++    POO    Herencia en POO
+What-is-a-Genetic-Algorithm
+Coding Challenge 351 Traveling Salesperson
+Ark survaval envolved
+ExtremeTech
